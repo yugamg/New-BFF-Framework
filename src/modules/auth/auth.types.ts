@@ -10,3 +10,7 @@ export interface ClassicSigninResponse {
 }
 
 export type ClassicSigninDownstreamResponse = ClassicValidateResponse;
+
+export interface SendAccessKeyLoginRequest {
+  email: string;
+}

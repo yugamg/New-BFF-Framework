@@ -25,6 +25,9 @@ export const HEADERS = {
   CONTENT_TYPE: "content-type",
   COOKIE: "cookie",
   SET_COOKIE: "set-cookie",
+  VTEX_ID_CLIENT_AUTH_COOKIE: "vtexidclientautcookie",
+  X_CUSTOMER_EMAIL: "x-customer-email",
+  CUSTOMER_AUTH_TOKEN: "customerAuthToken",
 } as const;
 
 export const API_PREFIX = "/api/v1";

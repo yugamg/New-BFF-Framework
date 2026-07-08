@@ -1,6 +1,6 @@
 import { HTTP_METHODS } from "@shared/constants/http";
 import type { FastifyInstance } from "fastify";
-import { classicSigninHandler } from "./auth.controller";
+import { classicSigninHandler, sendAccessKeyLoginHandler } from "./auth.controller";
 import {
   badRequestJsonSchema,
   classicSignin401JsonSchema,
@@ -9,6 +9,9 @@ import {
   forbiddenJsonSchema,
   internalServerErrorJsonSchema,
   notFoundJsonSchema,
+  sendAccessKeyLogin401JsonSchema,
+  sendAccessKeyLoginNoContentJsonSchema,
+  sendAccessKeyLoginRequestJsonSchema,
 } from "./auth.schema";
 
 export async function authRoutes(fastify: FastifyInstance): Promise<void> {
@@ -30,5 +33,24 @@ export async function authRoutes(fastify: FastifyInstance): Promise<void> {
     },
     attachValidation: true,
     handler: classicSigninHandler,
+  });
+
+  fastify.route({
+    method: HTTP_METHODS.POST,
+    url: "/auth/login/send-access-key",
+    schema: {
+      description: "Validate customer registration status and send login access key",
+      tags: ["auth"],
+      body: sendAccessKeyLoginRequestJsonSchema,
+      response: {
+        204: sendAccessKeyLoginNoContentJsonSchema,
+        400: badRequestJsonSchema,
+        401: sendAccessKeyLogin401JsonSchema,
+        403: forbiddenJsonSchema,
+        500: internalServerErrorJsonSchema,
+      },
+    },
+    attachValidation: true,
+    handler: sendAccessKeyLoginHandler,
   });
 }

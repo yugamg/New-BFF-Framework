@@ -21,3 +21,20 @@ export interface ClassicValidateResponse {
     Value: string;
   };
 }
+
+export interface AppTokenResponse {
+  token: string;
+  expires: number;
+  authStatus: string;
+}
+
+export interface SendAccessKeyParams {
+  email: string;
+  cookies?: string;
+}
+
+export interface SendAccessKeyResponse {
+  authStatus: string;
+  login?: string;
+  flow?: string;
+}

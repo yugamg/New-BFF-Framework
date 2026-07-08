@@ -45,6 +45,36 @@ export const classicSignin401JsonSchema = createErrorJsonSchema(
   "Invalid email or password"
 );
 
+export const SendAccessKeyLoginRequestSchema = z
+  .object({
+    email: z
+      .string({ required_error: "email is required" })
+      .trim()
+      .min(1, "email is required")
+      .email("Invalid email format"),
+  })
+  .strict();
+
+export const sendAccessKeyLoginRequestJsonSchema = {
+  type: "object",
+  required: ["email"],
+  properties: {
+    email: { type: "string", format: "email" },
+  },
+  additionalProperties: false,
+} as const;
+
+export const sendAccessKeyLoginNoContentJsonSchema = {
+  description: "Access key sent successfully",
+  type: "null",
+} as const;
+
+export const sendAccessKeyLogin401JsonSchema = createErrorJsonSchema(
+  "Customer is not registered",
+  "CUSTOMER_NOT_REGISTERED",
+  "customer not registered"
+);
+
 export {
   badRequestJsonSchema,
   forbiddenJsonSchema,

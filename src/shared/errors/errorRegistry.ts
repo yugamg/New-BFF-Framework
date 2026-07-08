@@ -8,6 +8,13 @@ export interface NormalizedError {
 
 // Keep this simple: add one section per downstream service and one entry per known error.
 const errorRegistry: Record<string, Record<string, NormalizedError>> = {
+  bff: {
+    CUSTOMER_NOT_REGISTERED: {
+      statusCode: 401,
+      errorCode: "CUSTOMER_NOT_REGISTERED",
+      message: "customer not registered",
+    },
+  },
   vtexId: {
     WrongCredentials: {
       statusCode: 401,
